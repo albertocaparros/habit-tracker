@@ -1,28 +1,34 @@
-import { provideZonelessChangeDetection } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { App } from './app';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatIconRegistry } from '@angular/material/icon';
+import { RouterOutlet } from '@angular/router';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
-describe('App', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [App],
-      providers: [provideZonelessChangeDetection()],
+describe('App Component', () => {
+  let fixture: ComponentFixture<App>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [RouterOutlet, MatSlideToggleModule],
+      providers: [MatIconRegistry, provideZonelessChangeDetection()],
     }).compileComponents();
-  });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(App);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(App);
+    fixture = TestBed.createComponent(App);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Hello, habit-tracker',
-    );
+  });
+
+  it('should create the component', () => {
+    expect(fixture.componentInstance).toBeTruthy();
+  });
+
+  it('should set default icon font class on init', () => {
+    const iconRegistry = TestBed.inject(MatIconRegistry);
+    const spy = vi.spyOn(iconRegistry, 'setDefaultFontSetClass');
+
+    fixture.componentInstance.ngOnInit();
+
+    expect(spy).toHaveBeenCalledWith('material-symbols-outlined');
   });
 });
