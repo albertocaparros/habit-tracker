@@ -1,12 +1,19 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatIconRegistry } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, MatSlideToggleModule],
   templateUrl: './app.html',
-  styleUrl: './app.scss',
+  styleUrls: ['./app.scss'],
 })
 export class App {
-  protected readonly title = signal('habit-tracker');
+  protected readonly title = signal('Habit Tracker');
+  matIconReg = inject(MatIconRegistry);
+
+  ngOnInit(): void {
+    this.matIconReg.setDefaultFontSetClass('material-symbols-outlined');
+  }
 }
