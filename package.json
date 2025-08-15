@@ -61,6 +61,7 @@
     "playwright-ng-schematics": "^2.1.0",
     "prettier": "^3.6.2",
     "typescript": "~5.8.2",
+    "vercel": "^45.0.9",
     "vite": "^6.0.0",
     "vite-tsconfig-paths": "^4.2.0",
     "vitest": "^3.0.0"
