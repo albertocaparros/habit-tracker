@@ -7,3 +7,6 @@ export interface HabitEntry {
   status: HabitStatus;
   note?: string;
 }
+
+export type HabitEntryInput = Omit<HabitEntry, 'id' | 'date'>;
+export type HabitEntryUpdate = Omit<HabitEntry, 'id' | 'date' | 'habitId'>;

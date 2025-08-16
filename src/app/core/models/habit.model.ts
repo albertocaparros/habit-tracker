@@ -5,3 +5,5 @@ export interface Habit {
   createdAt: string; // ISO date
   archived: boolean;
 }
+
+export type HabitInput = Omit<Habit, 'id' | 'createdAt' | 'archived'>;
