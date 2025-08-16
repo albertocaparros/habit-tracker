@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "vitest",
+    "test:watch": "vitest watch",
     "lint": "biome lint --write",
     "check": "biome check --write",
     "format": "biome format --write",
