@@ -4,10 +4,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { HabitsPage } from './habits-page';
+import { Header } from './header';
 
-describe('HabitsPage', () => {
-  let fixture: ComponentFixture<HabitsPage>;
+describe('Header', () => {
+  let fixture: ComponentFixture<Header>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -18,11 +18,22 @@ describe('HabitsPage', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HabitsPage);
+    fixture = TestBed.createComponent(Header);
     fixture.detectChanges();
   });
 
   it('should create the component', () => {
     expect(fixture.componentInstance).toBeTruthy();
+  });
+
+  it('should toggle dark mode class', () => {
+    document.documentElement.classList.remove('dark-mode');
+    fixture.componentInstance.toggleTheme();
+    expect(document.documentElement.classList.contains('dark-mode')).toBe(true);
+
+    fixture.componentInstance.toggleTheme();
+    expect(document.documentElement.classList.contains('dark-mode')).toBe(
+      false,
+    );
   });
 });

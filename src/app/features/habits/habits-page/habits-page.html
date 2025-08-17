@@ -1,15 +1,6 @@
-<header class="flex items-center justify-center gap-4">
-  <h1 class="p-4 text-3xl font-bold">Habit tracker</h1>
-
-  <article class="flex flex-row items-center justify-center gap-1">
-    <mat-icon aria-hidden="false" aria-label="sunny">wb_sunny</mat-icon>
-    <mat-slide-toggle (toggleChange)="toggleTheme()"> </mat-slide-toggle>
-    <mat-icon aria-hidden="false" aria-label="moon">moon_stars</mat-icon>
-  </article>
-</header>
-
+<app-header />
 <main class="flex flex-col justify-center gap-4 p-4">
-  <h2 class="font-semibold">Today - 17/08/2025</h2>
+  Today - {{ currentDate | formatDate }}
   <article class="flex flex-col items-center justify-center gap-2">
     <p class="font-semibold">Nothing for today!</p>
     <p class="text-sm">Rest is part of the process. See you tomorrow!</p>
