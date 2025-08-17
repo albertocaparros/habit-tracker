@@ -1,7 +1,176 @@
-<h1 class="text-3xl font-bold">Hello world!</h1>
+<header class="flex items-center justify-center gap-4">
+  <h1 class="p-4 text-3xl font-bold">Habit tracker</h1>
 
-<article class="flex flex-row items-center justify-center gap-1">
-  <mat-icon aria-hidden="false" aria-label="menu">wb_sunny</mat-icon>
-  <mat-slide-toggle (toggleChange)="toggleTheme()"> </mat-slide-toggle>
-  <mat-icon aria-hidden="false" aria-label="menu">moon_stars</mat-icon>
-</article>
+  <article class="flex flex-row items-center justify-center gap-1">
+    <mat-icon aria-hidden="false" aria-label="sunny">wb_sunny</mat-icon>
+    <mat-slide-toggle (toggleChange)="toggleTheme()"> </mat-slide-toggle>
+    <mat-icon aria-hidden="false" aria-label="moon">moon_stars</mat-icon>
+  </article>
+</header>
+
+<main class="flex flex-col justify-center gap-4 p-4">
+  <h2 class="font-semibold">Today - 17/08/2025</h2>
+  <article class="flex flex-col items-center justify-center gap-2">
+    <p class="font-semibold">Nothing for today!</p>
+    <p class="text-sm">Rest is part of the process. See you tomorrow!</p>
+  </article>
+  <article>
+    <mat-accordion>
+      <mat-expansion-panel class="border-2 w-full rounded-lg" hideToggle>
+        <mat-expansion-panel-header>
+          <div class="left-1/2 flex items-center gap-1 w-full">
+            <p class="text-3xl">
+              <mat-icon aria-hidden="false" aria-label="home">home</mat-icon>
+            </p>
+            <p class="text-lg">Make the bed</p>
+          </div>
+
+          <div class="flex items-center right-1/2">
+            <p class="text-green-700 dark:text-green-300 text-3xl">
+              <mat-icon aria-hidden="false" aria-label="check"
+                >check_circle</mat-icon
+              >
+            </p>
+          </div>
+        </mat-expansion-panel-header>
+        <aside>
+          <section class="flex items-center justify-center gap-2 p-2">
+            <p
+              class="bg-green-300 dark:bg-green-700 w-9 h-9 flex items-center justify-center border-2 rounded-full text-lg font-semibold select-none"
+            >
+              M
+            </p>
+            <p
+              class="bg-green-300 dark:bg-green-700 w-9 h-9 flex items-center justify-center border-2 rounded-full text-lg font-semibold select-none"
+            >
+              T
+            </p>
+            <p
+              class="bg-green-300 dark:bg-green-700 w-9 h-9 flex items-center justify-center border-2 rounded-full text-lg font-semibold select-none"
+            >
+              W
+            </p>
+            <p
+              class="bg-red-300 dark:bg-red-700 w-9 h-9 flex items-center justify-center border-2 rounded-full text-lg font-semibold select-none"
+            >
+              Th
+            </p>
+            <p
+              class="bg-slate-300 dark:bg-slate-700 w-9 h-9 flex items-center justify-center border-2 rounded-full text-lg font-semibold select-none"
+            >
+              F
+            </p>
+            <p
+              class="bg-slate-300 dark:bg-slate-700 w-9 h-9 flex items-center justify-center border-2 rounded-full text-lg font-semibold select-none"
+            >
+              Sa
+            </p>
+            <p
+              class="bg-slate-300 dark:bg-slate-700 w-9 h-9 flex items-center justify-center border-2 rounded-full text-lg font-semibold select-none"
+            >
+              Su
+            </p>
+          </section>
+
+          <section class="flex p-2">
+            <div class="left-1/2 ml-2 flex items-center gap-1 w-full">
+              <p class="text-3xl">
+                <mat-icon aria-hidden="false" aria-label="streak"
+                  >mode_heat</mat-icon
+                >
+              </p>
+              <p class="text-lg">Streak: 0</p>
+            </div>
+
+            <div class="flex items-center right-1/2">
+              <p class="text-3xl">
+                <mat-icon aria-hidden="false" aria-label="check"
+                  >edit_square</mat-icon
+                >
+              </p>
+            </div>
+          </section>
+        </aside>
+      </mat-expansion-panel>
+      <mat-expansion-panel class="border-2 w-full rounded-lg" hideToggle>
+        <mat-expansion-panel-header>
+          <div class="left-1/2 flex items-center gap-1 w-full">
+            <p class="text-3xl">
+              <mat-icon aria-hidden="false" aria-label="home">home</mat-icon>
+            </p>
+            <p class="text-lg">Make the bed</p>
+          </div>
+
+          <div class="flex items-center right-1/2">
+            <p class="text-green-700 dark:text-green-300 text-3xl">
+              <mat-icon aria-hidden="false" aria-label="check"
+                >check_circle</mat-icon
+              >
+            </p>
+          </div>
+        </mat-expansion-panel-header>
+        <aside>
+          <section class="flex items-center justify-center gap-2 p-2">
+            <p
+              class="bg-green-300 dark:bg-green-700 w-9 h-9 flex items-center justify-center border-2 rounded-full text-lg font-semibold select-none"
+            >
+              M
+            </p>
+            <p
+              class="bg-green-300 dark:bg-green-700 w-9 h-9 flex items-center justify-center border-2 rounded-full text-lg font-semibold select-none"
+            >
+              T
+            </p>
+            <p
+              class="bg-green-300 dark:bg-green-700 w-9 h-9 flex items-center justify-center border-2 rounded-full text-lg font-semibold select-none"
+            >
+              W
+            </p>
+            <p
+              class="bg-red-300 dark:bg-red-700 w-9 h-9 flex items-center justify-center border-2 rounded-full text-lg font-semibold select-none"
+            >
+              Th
+            </p>
+            <p
+              class="bg-slate-300 dark:bg-slate-700 w-9 h-9 flex items-center justify-center border-2 rounded-full text-lg font-semibold select-none"
+            >
+              F
+            </p>
+            <p
+              class="bg-slate-300 dark:bg-slate-700 w-9 h-9 flex items-center justify-center border-2 rounded-full text-lg font-semibold select-none"
+            >
+              Sa
+            </p>
+            <p
+              class="bg-slate-300 dark:bg-slate-700 w-9 h-9 flex items-center justify-center border-2 rounded-full text-lg font-semibold select-none"
+            >
+              Su
+            </p>
+          </section>
+
+          <section class="flex p-2">
+            <div class="left-1/2 ml-2 flex items-center gap-1 w-full">
+              <p class="text-3xl">
+                <mat-icon aria-hidden="false" aria-label="menu"
+                  >mode_heat</mat-icon
+                >
+              </p>
+              <p class="text-lg">Streak: 0</p>
+            </div>
+
+            <div class="flex items-center right-1/2">
+              <p class="text-3xl">
+                <mat-icon aria-hidden="false" aria-label="check"
+                  >edit_square</mat-icon
+                >
+              </p>
+            </div>
+          </section>
+        </aside>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </article>
+  <button class="w-1/2 m-auto" matButton="outlined">
+    <mat-icon aria-hidden="false" aria-label="add">add_2</mat-icon>New habit
+  </button>
+</main>

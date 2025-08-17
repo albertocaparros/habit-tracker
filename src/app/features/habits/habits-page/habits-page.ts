@@ -1,11 +1,17 @@
 import { Component, DOCUMENT, inject } from '@angular/core';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-habits-page',
-  imports: [MatIconModule, MatSlideToggleModule],
+  imports: [
+    MatIconModule,
+    MatSlideToggleModule,
+    MatButtonModule,
+    MatExpansionModule,
+  ],
   templateUrl: './habits-page.html',
   styleUrl: './habits-page.scss',
 })

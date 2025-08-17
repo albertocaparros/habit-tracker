@@ -4,5 +4,7 @@
       "path": ".",
     },
   ],
-  "settings": {},
+  "settings": {
+    "tailwindCSS.experimental.configFile": "src/styles.scss",
+  },
 }
