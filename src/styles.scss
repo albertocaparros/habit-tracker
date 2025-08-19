@@ -1,6 +1,8 @@
 @use "@angular/material" as mat;
 @use "tailwindcss";
 
+@custom-variant dark (&:where(.dark-mode, .dark-mode *));
+
 html {
   color-scheme: light;
 
@@ -14,8 +16,9 @@ html {
     )
   );
 
-  --mat-sys-surface: #edf2f7;
-  --mat-sys-surface-container-low: #edf2f7;
+  --mat-sys-surface: #d1d9f2;
+  --mat-sys-surface-container-low: #d1d9f2;
+  --mat-button-outlined-label-text-color: #333333;
 }
 
 html.dark-mode {
@@ -30,15 +33,16 @@ html.dark-mode {
     )
   );
 
-  --mat-sys-surface: #3b4a5e;
-  --mat-sys-surface-container-low: #3b4a5e;
+  --mat-sys-surface: #1c2338;
+  --mat-sys-surface-container-low: #1c2338;
+  --mat-button-outlined-label-text-color: #e5ebfa;
 }
 
 html,
 body {
   height: 100%;
-  color: light-dark(#333333, #f7fafc);
-  background-color: light-dark(#ffffff, #1a202c);
+  color: light-dark(#333333, #e5ebfa);
+  background-color: light-dark(#e5ebfa, #151a28);
 }
 
 body {

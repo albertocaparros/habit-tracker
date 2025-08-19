@@ -1,7 +1,31 @@
-<h1 class="text-3xl font-bold">Hello world!</h1>
+<app-header />
+<main class="flex flex-col justify-center gap-4 p-4">
+  <p>Today - {{ currentDate | formatDate }}</p>
 
-<article class="flex flex-row items-center justify-center gap-1">
-  <mat-icon aria-hidden="false" aria-label="menu">wb_sunny</mat-icon>
-  <mat-slide-toggle (toggleChange)="toggleTheme()"> </mat-slide-toggle>
-  <mat-icon aria-hidden="false" aria-label="menu">moon_stars</mat-icon>
-</article>
+  @if (habits().length === 0) {
+    <article
+      data-testid="empty-state"
+      class="flex flex-col items-center justify-center gap-2"
+    >
+      <p class="font-semibold">Nothing for today!</p>
+      <p class="text-sm">Rest is part of the process. See you tomorrow!</p>
+    </article>
+  } @else {
+    <article>
+      <mat-accordion>
+        @for (habit of habits(); track habit.id) {
+          <app-habit-card [habit]="habit" />
+        }
+      </mat-accordion>
+    </article>
+  }
+
+  <button
+    data-testid="new-habit-button"
+    class="w-1/2 m-auto"
+    matButton="outlined"
+    (click)="addHabit()"
+  >
+    <mat-icon aria-hidden="false" aria-label="add">add_2</mat-icon>New habit
+  </button>
+</main>

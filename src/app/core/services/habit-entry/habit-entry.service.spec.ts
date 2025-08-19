@@ -1,5 +1,3 @@
-import { TestBed } from '@angular/core/testing';
-import { should } from 'vitest';
 import {
   HabitEntry,
   HabitEntryInput,
@@ -8,7 +6,7 @@ import {
 } from '../../models';
 import { HabitEntryService } from './habit-entry.service';
 
-describe('HabitEntry', () => {
+describe('HabitEntryService', () => {
   let service: HabitEntryService;
   const mockEntry: HabitEntryInput = {
     habitId: 'habit-123',
@@ -39,7 +37,7 @@ describe('HabitEntry', () => {
   it('should get all entries for a habit', () => {
     const mockEntry2: HabitEntryInput = {
       habitId: 'habit-123',
-      status: 'skipped',
+      status: 'pending',
       note: 'Was too busy',
     };
 
@@ -71,7 +69,7 @@ describe('HabitEntry', () => {
 
   it('should update an entry', () => {
     const updatedEntry: HabitEntryUpdate = {
-      status: 'skipped',
+      status: 'missed',
       note: 'Changed my mind',
     };
 
@@ -79,7 +77,7 @@ describe('HabitEntry', () => {
     service.updateEntry(addedEntry.id, updatedEntry);
     const foundEntry = service.getEntryById(addedEntry.id);
 
-    expect(foundEntry?.status).toBe('skipped');
+    expect(foundEntry?.status).toBe(updatedEntry.status);
     expect(foundEntry?.note).toBe('Changed my mind');
   });
 
@@ -89,5 +87,22 @@ describe('HabitEntry', () => {
     const foundEntry = service.getEntryById(addedEntry.id);
 
     expect(foundEntry).toBeUndefined();
+  });
+
+  it('should cycle through the possible statuses of an entry', () => {
+    const statuses: HabitStatus[] = ['done', 'missed', 'pending'];
+    const addedEntry = service.addEntry(mockEntry);
+    let currentStatus = addedEntry.status;
+    const entryId = addedEntry.id;
+
+    for (let i = 1; i <= statuses.length; i++) {
+      service.switchStatus(entryId);
+      const updatedEntry = service.getEntryById(entryId);
+      const expectedStatus =
+        statuses[(statuses.indexOf(currentStatus) + 1) % statuses.length];
+
+      expect(updatedEntry?.status).toBe(expectedStatus);
+      currentStatus = updatedEntry!.status;
+    }
   });
 });

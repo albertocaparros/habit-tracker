@@ -1,12 +1,18 @@
 import { Injectable, signal } from '@angular/core';
 import { v4 as uuid } from 'uuid';
-import { HabitEntry, HabitEntryInput, HabitEntryUpdate } from '../../models';
+import {
+  HabitEntry,
+  HabitEntryInput,
+  HabitEntryUpdate,
+  HabitStatus,
+} from '../../models';
+import { mockHabitEntries } from './mock-habit-entries';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HabitEntryService {
-  private entries = signal<HabitEntry[]>([]);
+  private entries = signal<HabitEntry[]>(mockHabitEntries);
 
   getEntriesForHabit(habitId: string): HabitEntry[] {
     return this.entries().filter((entry) => entry.habitId === habitId);
@@ -18,9 +24,9 @@ export class HabitEntryService {
 
   addEntry(entry: HabitEntryInput): HabitEntry {
     const newEntry: HabitEntry = {
-      ...entry,
       id: uuid(),
-      date: new Date().toISOString(),
+      ...entry,
+      date: new Date().toISOString().slice(0, 10),
     };
 
     this.entries.update((e) => [...e, newEntry]);
@@ -37,5 +43,22 @@ export class HabitEntryService {
 
   removeEntry(id: string) {
     this.entries.update((e) => e.filter((entry) => entry.id !== id));
+  }
+
+  switchStatus(id: string): void {
+    this.entries.update((e) =>
+      e.map((entry) =>
+        entry.id === id
+          ? { ...entry, status: this.shuffleStatus(entry.status) }
+          : entry,
+      ),
+    );
+  }
+
+  private shuffleStatus(currentStatus: HabitStatus): HabitStatus {
+    const statuses: HabitStatus[] = ['done', 'missed', 'pending'];
+    const currentIndex = statuses.indexOf(currentStatus);
+    const nextIndex = (currentIndex + 1) % statuses.length;
+    return statuses[nextIndex];
   }
 }

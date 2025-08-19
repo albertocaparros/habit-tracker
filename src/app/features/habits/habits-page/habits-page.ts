@@ -1,22 +1,35 @@
-import { Component, DOCUMENT, inject } from '@angular/core';
-
+import { Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { HabitService } from '../../../core/services';
+import { HabitCard, Header } from '../../../shared/components';
+import { FormatDatePipe } from '../../../shared/pipes';
 
 @Component({
   selector: 'app-habits-page',
-  imports: [MatIconModule, MatSlideToggleModule],
+  imports: [
+    MatIconModule,
+    MatButtonModule,
+    MatExpansionModule,
+    Header,
+    FormatDatePipe,
+    HabitCard,
+  ],
   templateUrl: './habits-page.html',
   styleUrl: './habits-page.scss',
 })
 export class HabitsPage {
-  private readonly document = inject(DOCUMENT);
+  currentDate: Date = new Date();
+  habitService = inject(HabitService);
 
-  toggleTheme() {
-    if (this.document.documentElement.classList.contains('dark-mode')) {
-      this.document.documentElement.classList.remove('dark-mode');
-    } else {
-      this.document.documentElement.classList.add('dark-mode');
-    }
-  }
+  habits = this.habitService.getHabits();
+
+  addHabit = () => {
+    this.habitService.addHabit({
+      name: 'Read every day',
+      icon: 'book',
+      description: 'Description of the new habit',
+    });
+  };
 }
