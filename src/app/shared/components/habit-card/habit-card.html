@@ -1,0 +1,65 @@
+<mat-expansion-panel class="w-full" hideToggle>
+  <mat-expansion-panel-header>
+    <div
+      class="left-1/2 flex items-center gap-1 w-full"
+      matExpansionPanelToggleIndicator
+    >
+      @if (habit().icon) {
+        <p class="text-3xl">
+          <mat-icon aria-hidden="false" aria-label="home">{{
+            habit().icon
+          }}</mat-icon>
+        </p>
+      }
+      <p class="text-lg">{{ habit().name }}</p>
+    </div>
+
+    <div
+      data-testid="status"
+      class="flex items-center right-1/2"
+      (click)="switchStatus($event)"
+    >
+      @switch (todayEntry()?.status) {
+        @case ("done") {
+          <p class="text-green-700 dark:text-green-300 text-3xl">
+            <mat-icon aria-hidden="false" aria-label="check"
+              >check_circle</mat-icon
+            >
+          </p>
+        }
+        @case ("pending") {
+          <p class="text-slate-700 dark:text-slate-300 text-3xl">
+            <mat-icon aria-hidden="false" aria-label="check">schedule</mat-icon>
+          </p>
+        }
+        @case ("missed") {
+          <p class="text-red-700 dark:text-red-300 text-3xl">
+            <mat-icon aria-hidden="false" aria-label="check">cancel</mat-icon>
+          </p>
+        }
+        @default {
+          <p class="text-gray-700 dark:text-gray-300 text-3xl">
+            <mat-icon aria-hidden="false" aria-label="check">help</mat-icon>
+          </p>
+        }
+      }
+    </div>
+  </mat-expansion-panel-header>
+  <aside>
+    <app-weekday-indicator [habitEntries]="habitEntries()" />
+
+    <section class="flex p-2">
+      <div class="left-1/2 ml-2 flex flex-row items-center gap-1 w-full">
+        <app-streak-display [habitEntries]="habitEntries()" />
+      </div>
+
+      <div class="flex items-center right-1/2">
+        <p class="text-3xl">
+          <mat-icon aria-hidden="false" aria-label="check"
+            >edit_square</mat-icon
+          >
+        </p>
+      </div>
+    </section>
+  </aside>
+</mat-expansion-panel>

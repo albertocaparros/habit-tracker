@@ -1,4 +1,4 @@
-export type HabitStatus = 'done' | 'skipped' | 'missed';
+export type HabitStatus = 'done' | 'pending' | 'missed';
 
 export interface HabitEntry {
   id: string;

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
-import { Header } from '../../../shared/components/header/header';
+import { HabitService } from '../../../core/services';
+import { HabitCard, Header } from '../../../shared/components';
 import { FormatDatePipe } from '../../../shared/pipes';
 
 @Component({
@@ -13,10 +14,22 @@ import { FormatDatePipe } from '../../../shared/pipes';
     MatExpansionModule,
     Header,
     FormatDatePipe,
+    HabitCard,
   ],
   templateUrl: './habits-page.html',
   styleUrl: './habits-page.scss',
 })
 export class HabitsPage {
   currentDate: Date = new Date();
+  habitService = inject(HabitService);
+
+  habits = this.habitService.getHabits();
+
+  addHabit = () => {
+    this.habitService.addHabit({
+      name: 'Read every day',
+      icon: 'book',
+      description: 'Description of the new habit',
+    });
+  };
 }
