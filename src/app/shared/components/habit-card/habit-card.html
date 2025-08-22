@@ -6,9 +6,7 @@
     >
       @if (habit().icon) {
         <p class="text-3xl">
-          <mat-icon aria-hidden="true">{{
-            habit().icon
-          }}</mat-icon>
+          <mat-icon aria-hidden="true">{{ habit().icon }}</mat-icon>
         </p>
       }
       <h3 class="text-lg">{{ habit().name }}</h3>
@@ -19,7 +17,12 @@
       data-testid="status"
       class="flex items-center right-1/2 border-none bg-transparent cursor-pointer"
       (click)="switchStatus($event)"
-      [attr.aria-label]="'Toggle status for ' + habit().name + '. Current status: ' + (todayEntry()?.status || 'unknown')"
+      [attr.aria-label]="
+        'Toggle status for ' +
+        habit().name +
+        '. Current status: ' +
+        (todayEntry()?.status || 'unknown')
+      "
     >
       @switch (todayEntry()?.status) {
         @case ("done") {
@@ -53,7 +56,7 @@
         <app-streak-display [habitEntries]="habitEntries()" />
       </div>
 
-      <button 
+      <button
         type="button"
         class="flex items-center right-1/2 border-none bg-transparent cursor-pointer"
         [attr.aria-label]="'Edit habit ' + habit().name"
