@@ -34,6 +34,15 @@ export class HabitEntryService {
   }
 
   updateEntry(id: string, updatedEntry: HabitEntryUpdate): void {
+    if (!id?.trim()) {
+      throw new Error('Entry ID is required');
+    }
+
+    const existingEntry = this.getEntryById(id);
+    if (!existingEntry) {
+      throw new Error('Entry not found');
+    }
+
     this.entries.update((e) =>
       e.map((entry) =>
         entry.id === id ? { ...entry, ...updatedEntry } : entry,
@@ -42,10 +51,28 @@ export class HabitEntryService {
   }
 
   removeEntry(id: string) {
+    if (!id?.trim()) {
+      throw new Error('Entry ID is required');
+    }
+
+    const existingEntry = this.getEntryById(id);
+    if (!existingEntry) {
+      throw new Error('Entry not found');
+    }
+
     this.entries.update((e) => e.filter((entry) => entry.id !== id));
   }
 
   switchStatus(id: string): void {
+    if (!id?.trim()) {
+      throw new Error('Entry ID is required');
+    }
+
+    const existingEntry = this.getEntryById(id);
+    if (!existingEntry) {
+      throw new Error('Entry not found');
+    }
+
     this.entries.update((e) =>
       e.map((entry) =>
         entry.id === id

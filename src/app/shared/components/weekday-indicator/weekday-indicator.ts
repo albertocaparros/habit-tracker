@@ -12,7 +12,8 @@ export class WeekdayIndicator {
   habitEntries = input<HabitEntry[]>();
 
   weekdayStatus = computed(() => {
-    const start = this.getStartOfWeek(new Date());
+    const today = new Date();
+    const start = this.getStartOfWeek(new Date(today));
     const map: Record<string, HabitStatus> = {
       M: 'pending',
       T: 'pending',
@@ -29,7 +30,7 @@ export class WeekdayIndicator {
       dayDate.setDate(start.getDate() + i);
       const iso = dayDate.toISOString().slice(0, 10);
 
-      const entry = entries.find((e) => e.date == iso);
+      const entry = entries.find((e) => e.date === iso);
       const label = ['M', 'T', 'W', 'Th', 'F', 'Sa', 'Su'][i];
       map[label] = entry?.status ?? 'pending';
     }

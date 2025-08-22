@@ -18,17 +18,23 @@ export class HabitService {
   }
 
   addHabit(habit: HabitInput): Habit {
-    if (!habit.name) {
+    if (!habit.name?.trim()) {
       throw new Error('Habit name is required');
     }
 
-    if (this.habits().find((h) => h.name === habit.name)) {
+    const trimmedName = habit.name.trim();
+    if (
+      this.habits().find(
+        (h) => h.name.toLowerCase() === trimmedName.toLowerCase(),
+      )
+    ) {
       throw new Error('Two habits with the same name are not allowed');
     }
 
     const newHabit: Habit = {
       id: uuid(),
       ...habit,
+      name: trimmedName,
       createdAt: new Date().toISOString().slice(0, 10),
       archived: false,
     };
@@ -43,18 +49,60 @@ export class HabitService {
   }
 
   removeHabit(id: string) {
+    if (!id?.trim()) {
+      throw new Error('Habit ID is required');
+    }
+
+    const existingHabit = this.getHabitById(id);
+    if (!existingHabit) {
+      throw new Error('Habit not found');
+    }
+
     this.habits.update((h) => h.filter((habit) => habit.id !== id));
   }
 
   updateHabit(updatedHabit: HabitInput, id: string) {
+    if (!id?.trim()) {
+      throw new Error('Habit ID is required');
+    }
+
+    if (!updatedHabit.name?.trim()) {
+      throw new Error('Habit name is required');
+    }
+
+    const existingHabit = this.getHabitById(id);
+    if (!existingHabit) {
+      throw new Error('Habit not found');
+    }
+
+    const trimmedName = updatedHabit.name.trim();
+    const duplicateHabit = this.habits().find(
+      (h) => h.id !== id && h.name.toLowerCase() === trimmedName.toLowerCase(),
+    );
+
+    if (duplicateHabit) {
+      throw new Error('Two habits with the same name are not allowed');
+    }
+
     this.habits.update((h) =>
       h.map((habit) =>
-        habit.id === id ? { ...habit, ...updatedHabit } : habit,
+        habit.id === id
+          ? { ...habit, ...updatedHabit, name: trimmedName }
+          : habit,
       ),
     );
   }
 
   toggleArchive(id: string) {
+    if (!id?.trim()) {
+      throw new Error('Habit ID is required');
+    }
+
+    const existingHabit = this.getHabitById(id);
+    if (!existingHabit) {
+      throw new Error('Habit not found');
+    }
+
     this.habits.update((h) =>
       h.map((habit) =>
         habit.id === id ? { ...habit, archived: !habit.archived } : habit,

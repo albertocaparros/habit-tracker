@@ -6,60 +6,62 @@
     >
       @if (habit().icon) {
         <p class="text-3xl">
-          <mat-icon aria-hidden="false" aria-label="home">{{
+          <mat-icon aria-hidden="true">{{
             habit().icon
           }}</mat-icon>
         </p>
       }
-      <p class="text-lg">{{ habit().name }}</p>
+      <h3 class="text-lg">{{ habit().name }}</h3>
     </div>
 
-    <div
+    <button
+      type="button"
       data-testid="status"
-      class="flex items-center right-1/2"
+      class="flex items-center right-1/2 border-none bg-transparent cursor-pointer"
       (click)="switchStatus($event)"
+      [attr.aria-label]="'Toggle status for ' + habit().name + '. Current status: ' + (todayEntry()?.status || 'unknown')"
     >
       @switch (todayEntry()?.status) {
         @case ("done") {
           <p class="text-green-700 dark:text-green-300 text-3xl">
-            <mat-icon aria-hidden="false" aria-label="check"
-              >check_circle</mat-icon
-            >
+            <mat-icon aria-hidden="true">check_circle</mat-icon>
           </p>
         }
         @case ("pending") {
           <p class="text-slate-700 dark:text-slate-300 text-3xl">
-            <mat-icon aria-hidden="false" aria-label="check">schedule</mat-icon>
+            <mat-icon aria-hidden="true">schedule</mat-icon>
           </p>
         }
         @case ("missed") {
           <p class="text-red-700 dark:text-red-300 text-3xl">
-            <mat-icon aria-hidden="false" aria-label="check">cancel</mat-icon>
+            <mat-icon aria-hidden="true">cancel</mat-icon>
           </p>
         }
         @default {
           <p class="text-gray-700 dark:text-gray-300 text-3xl">
-            <mat-icon aria-hidden="false" aria-label="check">help</mat-icon>
+            <mat-icon aria-hidden="true">help</mat-icon>
           </p>
         }
       }
-    </div>
+    </button>
   </mat-expansion-panel-header>
-  <aside>
+  <section>
     <app-weekday-indicator [habitEntries]="habitEntries()" />
 
-    <section class="flex p-2">
+    <div class="flex p-2">
       <div class="left-1/2 ml-2 flex flex-row items-center gap-1 w-full">
         <app-streak-display [habitEntries]="habitEntries()" />
       </div>
 
-      <div class="flex items-center right-1/2">
+      <button 
+        type="button"
+        class="flex items-center right-1/2 border-none bg-transparent cursor-pointer"
+        [attr.aria-label]="'Edit habit ' + habit().name"
+      >
         <p class="text-3xl">
-          <mat-icon aria-hidden="false" aria-label="check"
-            >edit_square</mat-icon
-          >
+          <mat-icon aria-hidden="true">edit_square</mat-icon>
         </p>
-      </div>
-    </section>
-  </aside>
+      </button>
+    </div>
+  </section>
 </mat-expansion-panel>

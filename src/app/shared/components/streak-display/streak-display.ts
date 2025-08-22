@@ -20,15 +20,16 @@ export class StreakDisplay {
     );
 
     let streak = 0;
-    const day = new Date();
+    const today = new Date();
+    const currentDay = new Date(today);
 
     while (true) {
-      const iso = day.toISOString().slice(0, 10);
-      const entry = sorted.find((e) => e.date == iso);
+      const iso = currentDay.toISOString().slice(0, 10);
+      const entry = sorted.find((e) => e.date === iso);
 
       if (entry?.status === 'done') {
         streak++;
-        day.setDate(day.getDate() - 1);
+        currentDay.setDate(currentDay.getDate() - 1);
       } else {
         break;
       }

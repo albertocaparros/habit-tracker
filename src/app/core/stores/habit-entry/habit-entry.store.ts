@@ -5,7 +5,7 @@ import { HabitEntryService } from '../../services';
 @Injectable({ providedIn: 'root' })
 export class HabitEntryStore {
   private habitEntryService = inject(HabitEntryService);
-  readonly today = new Date().toISOString().slice(0, 10);
+  private readonly today = new Date().toISOString().slice(0, 10);
 
   private habit = signal<Habit | null>(null);
   private entries = signal<HabitEntry[]>([]);
@@ -16,6 +16,11 @@ export class HabitEntryStore {
   );
 
   setHabit(habit: Habit) {
+    if (!habit?.id) {
+      console.warn('Cannot set habit: invalid habit provided');
+      return;
+    }
+
     this.habit.set(habit);
     const fetched = this.habitEntryService.getEntriesForHabit(habit.id);
 
@@ -23,7 +28,7 @@ export class HabitEntryStore {
       const todayEntry = this.habitEntryService.addEntry({
         habitId: habit.id,
         status: 'pending',
-      } as HabitEntryInput);
+      });
 
       fetched.push(todayEntry);
     }
@@ -32,9 +37,15 @@ export class HabitEntryStore {
   }
 
   switchTodayStatus() {
-    this.habitEntryService.switchStatus(this.todayEntry()?.id || '');
-    this.entries.set(
-      this.habitEntryService.getEntriesForHabit(this.habit()?.id || ''),
-    );
+    const todayEntry = this.todayEntry();
+    const habit = this.habit();
+
+    if (!todayEntry?.id || !habit?.id) {
+      console.warn('Cannot switch status: missing today entry or habit');
+      return;
+    }
+
+    this.habitEntryService.switchStatus(todayEntry.id);
+    this.entries.set(this.habitEntryService.getEntriesForHabit(habit.id));
   }
 }

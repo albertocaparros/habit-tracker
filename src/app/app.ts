@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -9,7 +9,7 @@ import { MatIconRegistry } from '@angular/material/icon';
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
 })
-export class App {
+export class App implements OnInit {
   protected readonly title = signal('Habit Tracker');
   matIconReg = inject(MatIconRegistry);
 
