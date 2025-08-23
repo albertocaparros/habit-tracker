@@ -1,4 +1,4 @@
-<section class="flex items-center justify-center gap-2 p-2">
+<section class="flex items-center justify-center gap-2">
   @for (day of ["M", "T", "W", "Th", "F", "Sa", "Su"]; track day) {
     <p
       [ngClass]="{
@@ -6,7 +6,7 @@
         'bg-red-300 dark:bg-red-700': weekdayStatus()[day] === 'missed',
         'bg-slate-300 dark:bg-slate-700': weekdayStatus()[day] === 'pending',
       }"
-      class="w-9 h-9 flex items-center justify-center border-2 rounded-full text-lg font-semibold select-none"
+      class="w-8 h-8 flex items-center justify-center border-2 rounded-full font-semibold select-none"
     >
       {{ day }}
     </p>

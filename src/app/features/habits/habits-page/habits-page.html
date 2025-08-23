@@ -1,5 +1,5 @@
-<app-header />
-<main class="flex flex-col justify-center gap-4 p-4">
+<main class="h-screen flex flex-col gap-4 p-4">
+  <app-header />
   <p>Today - {{ currentDate | formatDate }}</p>
 
   @if (habits().length === 0) {
@@ -11,8 +11,8 @@
       <p class="text-sm">Rest is part of the process. See you tomorrow!</p>
     </article>
   } @else {
-    <article>
-      <mat-accordion>
+    <article class="max-h-3/4 overflow-y-scroll">
+      <mat-accordion [multi]="true">
         @for (habit of habits(); track habit.id) {
           <app-habit-card [habit]="habit" />
         }
@@ -22,9 +22,9 @@
 
   <button
     data-testid="new-habit-button"
-    class="w-1/2 m-auto"
+    class="w-1/2 self-center"
     matButton="outlined"
-    (click)="addHabit()"
+    routerLink="/add"
   >
     <mat-icon aria-hidden="false" aria-label="add">add_2</mat-icon>New habit
   </button>

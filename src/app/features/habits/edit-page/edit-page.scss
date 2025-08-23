@@ -1,0 +1,8 @@
+:host {
+  .mat-warn {
+    background: var(--mat-sys-error-container);
+    color: var(--mat-sys-on-error-container);
+    border: 1px solid var(--mat-sys-outline-variant);
+    font: var(--mat-sys-body-large);
+  }
+}

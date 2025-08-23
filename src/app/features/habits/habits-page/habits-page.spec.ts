@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { By } from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { HabitService } from '../../../core/services';
 import { mockHabits } from '../../../core/services/habit/mock-habits';
@@ -29,6 +30,7 @@ describe('HabitsPage', () => {
         { provide: DOCUMENT, useValue: globalThis.document },
         { provide: HabitService, useValue: habitServiceMock },
         provideZonelessChangeDetection(),
+        provideRouter([]),
       ],
     }).compileComponents();
 
@@ -97,16 +99,13 @@ describe('HabitsPage', () => {
     });
   });
 
-  it('should contain a button to add a new habit', () => {
+  it('should contain a button to add a new habit and redirect to add habit page', async () => {
     const addButton = fixture.debugElement.query(
       By.css('[data-testid="new-habit-button"]'),
     ).nativeElement;
 
     expect(addButton).toBeTruthy();
     expect(addButton.textContent).toContain('New habit');
-
-    addButton.click();
-    fixture.detectChanges();
-    expect(habitServiceMock.addHabit).toHaveBeenCalled();
+    expect(addButton.getAttribute('routerLink')).toBe('/add');
   });
 });

@@ -3,22 +3,46 @@
 
 @custom-variant dark (&:where(.dark-mode, .dark-mode *));
 
+@theme {
+  --animate-shake: shake 0.6s ease;
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    20%,
+    60% {
+      transform: translateX(-4px);
+    }
+    40%,
+    80% {
+      transform: translateX(4px);
+    }
+  }
+}
+
+$my-light-theme: mat.m2-define-light-theme(
+  (
+    color: (
+      primary: mat.$azure-palette,
+      accent: mat.$azure-palette,
+      theme-type: light,
+    ),
+    density: 0,
+  )
+);
+
 html {
   color-scheme: light;
 
-  @include mat.theme(
-    (
-      color: (
-        primary: mat.$azure-palette,
-        theme-type: light,
-      ),
-      density: 0,
-    )
-  );
+  @include mat.theme($my-light-theme);
+  @include mat.button-theme($my-light-theme);
 
   --mat-sys-surface: #d1d9f2;
   --mat-sys-surface-container-low: #d1d9f2;
   --mat-button-outlined-label-text-color: #333333;
+  --mat-form-field-filled-container-color: #d1d9f2;
+  --mat-menu-container-color: #e5ebfa;
 }
 
 html.dark-mode {
@@ -36,6 +60,13 @@ html.dark-mode {
   --mat-sys-surface: #1c2338;
   --mat-sys-surface-container-low: #1c2338;
   --mat-button-outlined-label-text-color: #e5ebfa;
+  --mat-button-outlined-outline-color: #e5ebfa;
+  --mat-form-field-filled-container-color: #1c2338;
+  --mat-menu-container-color: #333333;
+  --mat-button-toggle-background-color: #1c2338;
+  --mat-button-outlined-disabled-label-text-color: #e5ebfa8f;
+  --mat-button-outlined-disabled-outline-color: #e5ebfa8f;
+  --mat-sys-error-container: #93000a;
 }
 
 html,

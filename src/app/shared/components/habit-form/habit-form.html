@@ -1,0 +1,65 @@
+<form
+  [formGroup]="habitForm"
+  (ngSubmit)="onSubmit()"
+  class="flex flex-col items-start w-full flex-auto m-0"
+>
+  <mat-form-field class="w-full p-4 mx-auto">
+    <mat-label>Habit name</mat-label>
+    <input
+      matInput
+      formControlName="name"
+      placeholder="e.g. Drink water"
+      maxlength="55"
+    />
+    @if (
+      habitForm.get("name")?.hasError("required") &&
+      habitForm.get("name")?.touched
+    ) {
+      <mat-error data-testid="required-name-error"
+        >Please enter a habit name</mat-error
+      >
+    }
+    @if (
+      habitForm.get("name")?.hasError("minlength") &&
+      habitForm.get("name")?.touched
+    ) {
+      <mat-error data-testid="minlength-name-error"
+        >Use at least 3 characters</mat-error
+      >
+    }
+    @if (
+      habitForm.get("name")?.hasError("duplicated") &&
+      habitForm.get("name")?.touched
+    ) {
+      <mat-error data-testid="duplicated-name-error"
+        >Duplicated names are not allowed</mat-error
+      >
+    }
+  </mat-form-field>
+
+  <mat-button-toggle-group
+    formControlName="topic"
+    class="flex flex-nowrap overflow-x-scroll w-11/12 mx-auto px-2 scroll-smooth"
+    (change)="onTopicChange($event)"
+  >
+    @for (topic of topics; track topic.name) {
+      <mat-button-toggle
+        #topicButton
+        class="flex items-center"
+        value="{{ topic.icon }}"
+      >
+        <mat-icon>{{ topic.icon }}</mat-icon>
+        <p class="text-sm">{{ topic.name }}</p>
+      </mat-button-toggle>
+    }
+  </mat-button-toggle-group>
+
+  @if (
+    habitForm.get("topic")?.hasError("required") &&
+    habitForm.get("topic")?.touched
+  ) {
+    <mat-error class="mx-auto" data-testid="required-topic-error"
+      >Please select a topic</mat-error
+    >
+  }
+</form>

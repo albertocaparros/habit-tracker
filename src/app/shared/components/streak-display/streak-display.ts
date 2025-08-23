@@ -23,8 +23,9 @@ export class StreakDisplay {
     const day = new Date();
 
     while (true) {
-      const iso = day.toISOString().slice(0, 10);
-      const entry = sorted.find((e) => e.date == iso);
+      const entry = sorted.find(
+        (e) => e.date == day.toISOString().slice(0, 10),
+      );
 
       if (entry?.status === 'done') {
         streak++;

@@ -1,10 +1,10 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { App } from './app';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatIconRegistry } from '@angular/material/icon';
-import { RouterOutlet } from '@angular/router';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatIconRegistry } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { RouterOutlet } from '@angular/router';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { App } from './app';
 
 describe('App Component', () => {
   let fixture: ComponentFixture<App>;
