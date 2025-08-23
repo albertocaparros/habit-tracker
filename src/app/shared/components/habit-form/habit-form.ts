@@ -126,6 +126,6 @@ export class HabitForm {
   }
 
   private capitalizeFirstLetter(string: string): string {
-    return [...string][0].toUpperCase() + [...string].slice(1).join('');
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }
