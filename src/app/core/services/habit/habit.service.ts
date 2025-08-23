@@ -22,7 +22,10 @@ export class HabitService {
       throw new Error('required');
     }
 
-    if (this.habits().find((h) => h.name === habit.name)) {
+    const normalizedName = habit.name.trim().toLowerCase();
+    if (
+      this.habits().find((h) => h.name.trim().toLowerCase() === normalizedName)
+    ) {
       throw new Error('duplicated');
     }
 
@@ -46,8 +49,11 @@ export class HabitService {
   }
 
   updateHabit(updatedHabit: HabitInput, id: string) {
+    const normalizedName = updatedHabit.name.trim().toLowerCase();
     if (
-      this.habits().find((h) => h.name === updatedHabit.name && h.id !== id)
+      this.habits().find(
+        (h) => h.name.trim().toLowerCase() === normalizedName && h.id !== id,
+      )
     ) {
       throw new Error('duplicated');
     }
