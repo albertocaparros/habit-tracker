@@ -1,5 +1,7 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { Habit, HabitEntry } from '../../../core/models';
 import { HabitEntryService } from '../../../core/services';
 import { mockHabitEntries } from '../../../core/services/habit-entry/mock-habit-entries';
@@ -34,6 +36,10 @@ describe('HabitCard', () => {
       providers: [
         provideZonelessChangeDetection(),
         { provide: HabitEntryService, useValue: mockHabitEntryService },
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { paramMap: new Map([['id', 'habit-1']]) } },
+        },
       ],
     }).compileComponents();
 
@@ -46,7 +52,6 @@ describe('HabitCard', () => {
       icon: 'self_improvement',
       description: '10 minutes of mindfulness',
       createdAt: '2025-08-01',
-      archived: false,
     };
 
     fixture.componentRef.setInput('habit', habit);
@@ -88,7 +93,7 @@ describe('HabitCard', () => {
   });
 
   it('should print the habit name', () => {
-    const nameElement = fixture.nativeElement.querySelector('.text-lg');
+    const nameElement = fixture.nativeElement.querySelector('.p-4');
     expect(nameElement.textContent).toContain('Daily Meditation');
   });
 

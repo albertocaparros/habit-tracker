@@ -1,0 +1,45 @@
+<div class="flex flex-col h-screen">
+  <header class="flex items-center justify-end gap-6">
+    <h1 class="p-4 text-2xl font-bold">Edit habit</h1>
+
+    <button
+      data-testid="cancel-button"
+      class="flex flex-row items-center justify-center ml-5 mr-6"
+      routerLink="/"
+    >
+      Cancel
+    </button>
+  </header>
+  <main class="flex flex-col gap-4">
+    <h2 class="w-2/3 mx-auto font-bold text-center mt-4">
+      Update your habit's name and/or topic
+    </h2>
+
+    <app-habit-form
+      [habit]="habit()"
+      (submitHabit)="saveHabit($event)"
+      (formStatusChange)="isFormValid.set($event)"
+      class="flex flex-col items-start w-full flex-auto"
+    ></app-habit-form>
+
+    <button
+      data-testid="delete-button"
+      class="w-5/6 mx-auto"
+      [class.animate-shake]="highlightDelete"
+      color="warn"
+      matButton="tonal"
+      (click)="deleteHabit()"
+    >
+      {{ deleteStatus() }}
+    </button>
+    <button
+      data-testid="save-button"
+      class="w-5/6 mx-auto"
+      matButton="outlined"
+      (click)="triggerSave()"
+      [disabled]="!isFormValid()"
+    >
+      Save
+    </button>
+  </main>
+</div>

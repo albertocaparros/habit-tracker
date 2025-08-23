@@ -1,9 +1,10 @@
-<header class="flex items-center justify-center gap-4">
-  <h1 class="p-4 text-3xl font-bold">Habit tracker</h1>
+<header class="flex items-center justify-center gap-2">
+  <h1 class="p-4 text-2xl font-bold">Habit tracker</h1>
 
   <article class="flex flex-row items-center justify-center gap-1">
     <mat-icon aria-hidden="false" aria-label="sunny">wb_sunny</mat-icon>
-    <mat-slide-toggle (toggleChange)="toggleTheme()"> </mat-slide-toggle>
+    <mat-slide-toggle hideIcon="true" (toggleChange)="toggleTheme()">
+    </mat-slide-toggle>
     <mat-icon aria-hidden="false" aria-label="moon">moon_stars</mat-icon>
   </article>
 </header>

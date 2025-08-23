@@ -13,24 +13,23 @@ export class HabitService {
 
   getHabits = () => this.habits;
 
-  getHabitById(id: string) {
+  getHabitById(id: string): Habit | undefined {
     return this.habits().find((habit) => habit.id === id);
   }
 
   addHabit(habit: HabitInput): Habit {
     if (!habit.name) {
-      throw new Error('Habit name is required');
+      throw new Error('required');
     }
 
     if (this.habits().find((h) => h.name === habit.name)) {
-      throw new Error('Two habits with the same name are not allowed');
+      throw new Error('duplicated');
     }
 
     const newHabit: Habit = {
       id: uuid(),
       ...habit,
       createdAt: new Date().toISOString().slice(0, 10),
-      archived: false,
     };
     this.habits.update((h) => [...h, newHabit]);
 
@@ -47,17 +46,15 @@ export class HabitService {
   }
 
   updateHabit(updatedHabit: HabitInput, id: string) {
+    if (
+      this.habits().find((h) => h.name === updatedHabit.name && h.id !== id)
+    ) {
+      throw new Error('duplicated');
+    }
+
     this.habits.update((h) =>
       h.map((habit) =>
         habit.id === id ? { ...habit, ...updatedHabit } : habit,
-      ),
-    );
-  }
-
-  toggleArchive(id: string) {
-    this.habits.update((h) =>
-      h.map((habit) =>
-        habit.id === id ? { ...habit, archived: !habit.archived } : habit,
       ),
     );
   }

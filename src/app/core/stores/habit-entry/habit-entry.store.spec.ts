@@ -1,7 +1,8 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { Habit, HabitEntry, HabitEntryInput } from '../../models';
-import { HabitEntryService, HabitService } from '../../services';
+import { HabitEntryService } from '../../services';
 import { mockHabitEntries } from '../../services/habit-entry/mock-habit-entries';
 import { HabitEntryStore } from './habit-entry.store';
 
@@ -11,8 +12,8 @@ describe('HabitEntryStore', () => {
   const habit: Habit = {
     id: 'habit-1',
     name: 'Test Habit',
+    icon: 'self_improvement',
     createdAt: new Date().toISOString().slice(0, 10),
-    archived: false,
   };
 
   beforeEach(() => {

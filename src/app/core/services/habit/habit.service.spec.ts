@@ -1,5 +1,6 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { Habit, HabitInput } from '../../models';
 import { HabitEntryService } from '../habit-entry/habit-entry.service';
 import { HabitService } from './habit.service';
@@ -15,6 +16,7 @@ describe('HabitService', () => {
 
   const mockHabit: HabitInput = {
     name: 'Meditate',
+    icon: 'self_improvement',
     description: 'Daily meditation for mindfulness',
   };
 
@@ -51,6 +53,7 @@ describe('HabitService', () => {
     const mockHabit2 = {
       name: 'Exercise',
       description: 'Daily workout routine',
+      icon: 'fitness_center',
     };
 
     const insertedHabit1 = service.addHabit(mockHabit);
@@ -85,6 +88,7 @@ describe('HabitService', () => {
     const updatedHabit: HabitInput = {
       name: 'Meditate Updated',
       description: 'Updated meditation description',
+      icon: 'self_improvement',
     };
 
     service.updateHabit(updatedHabit, insertedHabit.id);
@@ -92,15 +96,6 @@ describe('HabitService', () => {
     const foundHabit = service.getHabitById(insertedHabit.id);
     expect(foundHabit?.name).toBe('Meditate Updated');
     expect(foundHabit?.description).toBe('Updated meditation description');
-  });
-
-  it('should toggle archive status of a habit', () => {
-    const insertedHabit = service.addHabit(mockHabit);
-
-    service.toggleArchive(insertedHabit.id);
-
-    const foundHabit = service.getHabitById(insertedHabit.id);
-    expect(foundHabit?.archived).toBeTruthy();
   });
 
   it('should create a habit entry when adding a habit', () => {
@@ -118,18 +113,15 @@ describe('HabitService', () => {
     const invalidHabit: HabitInput = {
       name: '',
       description: 'This should not be added',
+      icon: 'self_improvement',
     };
 
-    expect(() => service.addHabit(invalidHabit)).toThrowError(
-      'Habit name is required',
-    );
+    expect(() => service.addHabit(invalidHabit)).toThrowError('required');
   });
 
   it('should not allow adding two habits with the same name', () => {
     const insertedHabit = service.addHabit(mockHabit);
 
-    expect(() => service.addHabit(insertedHabit)).toThrowError(
-      'Two habits with the same name are not allowed',
-    );
+    expect(() => service.addHabit(insertedHabit)).toThrowError('duplicated');
   });
 });

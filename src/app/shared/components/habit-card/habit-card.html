@@ -1,7 +1,7 @@
 <mat-expansion-panel class="w-full" hideToggle>
-  <mat-expansion-panel-header>
+  <mat-expansion-panel-header class="min-h-[4rem]">
     <div
-      class="left-1/2 flex items-center gap-1 w-full"
+      class="left-1/2 flex items-center w-full"
       matExpansionPanelToggleIndicator
     >
       @if (habit().icon) {
@@ -11,7 +11,7 @@
           }}</mat-icon>
         </p>
       }
-      <p class="text-lg">{{ habit().name }}</p>
+      <p class="p-4">{{ habit().name }}</p>
     </div>
 
     <div
@@ -45,15 +45,18 @@
       }
     </div>
   </mat-expansion-panel-header>
-  <aside>
+  <aside class="flex flex-col gap-2">
     <app-weekday-indicator [habitEntries]="habitEntries()" />
 
-    <section class="flex p-2">
+    <section class="flex">
       <div class="left-1/2 ml-2 flex flex-row items-center gap-1 w-full">
         <app-streak-display [habitEntries]="habitEntries()" />
       </div>
 
-      <div class="flex items-center right-1/2">
+      <div
+        class="flex items-center right-1/2"
+        routerLink="/edit/{{ habit().id }}"
+      >
         <p class="text-3xl">
           <mat-icon aria-hidden="false" aria-label="check"
             >edit_square</mat-icon
