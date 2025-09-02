@@ -1,0 +1,32 @@
+<app-calendar-heatmap [currentDate]="today" [dailyData]="dailyData()">
+</app-calendar-heatmap>
+<article class="flex flex-col gap-1 p-2 mt-2">
+  <div class="flex items-center">
+    <p><mat-icon class="scale-90">mode_heat</mat-icon></p>
+    <p data-testid="longest-streak">
+      Longest Streak: {{ habitStats().longestStreak.days }} days ({{
+        habitStats().longestStreak.habitName
+      }})
+    </p>
+  </div>
+  <div class="flex items-center">
+    <p><mat-icon class="scale-90">trophy</mat-icon></p>
+    <p data-testid="most-cleared-habit">
+      Most Cleared Habit: {{ habitStats().mostClearedHabit.habitName }} -
+      {{ habitStats().mostClearedHabit.clearingPercentage.toFixed(2) }}%
+    </p>
+  </div>
+  <div class="flex items-center">
+    <p><mat-icon class="scale-90">snooze</mat-icon></p>
+    <p data-testid="least-cleared-habit">
+      Least Cleared Habit: {{ habitStats().leastClearedHabit.habitName }} -
+      {{ habitStats().leastClearedHabit.clearingPercentage.toFixed(2) }}%
+    </p>
+  </div>
+  <div class="flex items-center">
+    <p><mat-icon class="scale-90">bar_chart</mat-icon></p>
+    <p data-testid="completion-rate">
+      Completion Rate: {{ habitStats().completionRate.toFixed(2) }}%
+    </p>
+  </div>
+</article>

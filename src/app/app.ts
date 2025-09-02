@@ -1,11 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconRegistry } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { RouterOutlet } from '@angular/router';
+import { Navigation } from './shared/components/navigation/navigation';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatSlideToggleModule],
+  imports: [RouterOutlet, MatSlideToggleModule, Navigation],
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
 })

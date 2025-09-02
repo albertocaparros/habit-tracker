@@ -58,31 +58,31 @@ export const mockHabitEntries: HabitEntry[] = [
   },
   // Drink Water – mixed streak
   {
-    id: 'entry-8',
+    id: 'entry-10',
     habitId: 'habit-2',
     date: '2025-08-17',
     status: 'missed',
   },
   {
-    id: 'entry-9',
+    id: 'entry-11',
     habitId: 'habit-2',
     date: '2025-08-16',
     status: 'done',
   },
   {
-    id: 'entry-10',
+    id: 'entry-12',
     habitId: 'habit-2',
     date: '2025-08-15',
     status: 'pending',
   },
   {
-    id: 'entry-11',
+    id: 'entry-13',
     habitId: 'habit-2',
     date: '2025-08-14',
     status: 'done',
   },
   {
-    id: 'entry-12',
+    id: 'entry-14',
     habitId: 'habit-2',
     date: '2025-08-18',
     status: 'done',

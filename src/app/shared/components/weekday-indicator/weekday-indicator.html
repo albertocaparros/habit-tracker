@@ -1,10 +1,12 @@
 <section class="flex items-center justify-center gap-2">
   @for (day of ["M", "T", "W", "Th", "F", "Sa", "Su"]; track day) {
     <p
+      data-testid="weekday"
       [ngClass]="{
-        'bg-green-300 dark:bg-green-700': weekdayStatus()[day] === 'done',
-        'bg-red-300 dark:bg-red-700': weekdayStatus()[day] === 'missed',
-        'bg-slate-300 dark:bg-slate-700': weekdayStatus()[day] === 'pending',
+        'bg-green-300 dark:bg-green-700': weekdayStatus().get(day) === 'done',
+        'bg-red-300 dark:bg-red-700': weekdayStatus().get(day) === 'missed',
+        'bg-slate-300 dark:bg-slate-700':
+          weekdayStatus().get(day) === 'pending',
       }"
       class="w-8 h-8 flex items-center justify-center border-2 rounded-full font-semibold select-none"
     >

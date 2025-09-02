@@ -1,0 +1,22 @@
+<nav
+  class="fixed bottom-0 left-0 w-full border-t z-50 flex justify-around py-2"
+>
+  <a
+    routerLink="/"
+    [routerLinkActive]="activeClasses"
+    [routerLinkActiveOptions]="{ exact: true }"
+    ><mat-icon>home</mat-icon></a
+  >
+  <a
+    routerLink="/add"
+    [routerLinkActive]="activeClasses"
+    [routerLinkActiveOptions]="{ exact: true }"
+    ><mat-icon>add_2</mat-icon></a
+  >
+  <a
+    routerLink="/overview"
+    [routerLinkActive]="activeClasses"
+    [routerLinkActiveOptions]="{ exact: true }"
+    ><mat-icon>calendar_month</mat-icon></a
+  >
+</nav>

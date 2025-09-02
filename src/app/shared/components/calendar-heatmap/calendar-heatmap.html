@@ -1,0 +1,50 @@
+<div class="flex items-center justify-center align-middle m-2 gap-4 h-8">
+  <mat-icon (click)="prevMonth()" class="flex items-center">
+    chevron_left
+  </mat-icon>
+
+  <p class="align-middle text-lg font-bold" data-testid="current-month">
+    {{ months[selectedMonth] }} {{ selectedYear }}
+  </p>
+
+  <mat-icon (click)="nextMonth()" class="flex items-center">
+    chevron_right
+  </mat-icon>
+</div>
+
+<div class="items-center grid grid-cols-7 text-center text-sm my-1">
+  @for (day of days; track $index) {
+    <div class="font-bold">
+      {{ day }}
+    </div>
+  }
+</div>
+
+@for (week of weeks; track $index) {
+  <div class="grid grid-cols-7">
+    @for (day of week; track $index) {
+      <div
+        class="aspect-square flex flex-col justify-between gap-2 p-1"
+        [class.opacity-30]="!isSelectedMonth(day)"
+      >
+        <div class="text-sm text-center" [class.font-bold]="isCurrentDay(day)">
+          {{ day.getDate() }}
+        </div>
+        @if (dailyData[getDayKey(day)]) {
+          <p
+            class="w-9 h-9 flex items-center justify-center border-1 rounded-xl select-none m-auto text-sm leading-tight tracking-widest"
+            [ngClass]="getHeatmapColor(day)"
+          >
+            {{ dailyData[getDayKey(day)].completed }}/{{
+              dailyData[getDayKey(day)].total
+            }}
+          </p>
+        } @else {
+          <p
+            class="w-9 h-9 flex items-center justify-center border-1 rounded-xl select-none m-auto text-sm leading-tight tracking-widest"
+          ></p>
+        }
+      </div>
+    }
+  </div>
+}
