@@ -13,15 +13,15 @@ export class WeekdayIndicator {
 
   weekdayStatus = computed(() => {
     const start = this.getStartOfWeek(new Date());
-    const map: Record<string, HabitStatus> = {
-      M: 'pending',
-      T: 'pending',
-      W: 'pending',
-      Th: 'pending',
-      F: 'pending',
-      Sa: 'pending',
-      Su: 'pending',
-    };
+    const map = new Map<string, HabitStatus>([
+      ['M', 'pending'],
+      ['T', 'pending'],
+      ['W', 'pending'],
+      ['Th', 'pending'],
+      ['F', 'pending'],
+      ['Sa', 'pending'],
+      ['Su', 'pending'],
+    ]);
 
     const entries = this.habitEntries() ?? [];
     for (let i = 0; i < 7; i++) {
@@ -31,7 +31,7 @@ export class WeekdayIndicator {
 
       const entry = entries.find((e) => e.date == iso);
       const label = ['M', 'T', 'W', 'Th', 'F', 'Sa', 'Su'][i];
-      map[label] = entry?.status ?? 'pending';
+      map.set(label, entry?.status ?? 'pending');
     }
 
     return map;

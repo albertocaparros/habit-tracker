@@ -7,7 +7,7 @@ import { HabitService } from './habit.service';
 
 describe('HabitService', () => {
   let service: HabitService;
-  let habitEntryServiceMock: HabitEntryService = {
+  const habitEntryServiceMock: HabitEntryService = {
     getEntriesForHabit: vi.fn().mockReturnValue([]),
     addEntry: vi.fn(),
     updateEntry: vi.fn(),
@@ -21,13 +21,6 @@ describe('HabitService', () => {
   };
 
   beforeEach(() => {
-    habitEntryServiceMock = {
-      getEntriesForHabit: vi.fn().mockReturnValue([]),
-      addEntry: vi.fn(),
-      updateEntry: vi.fn(),
-      removeEntry: vi.fn(),
-    } as unknown as HabitEntryService;
-
     TestBed.configureTestingModule({
       providers: [
         HabitService,
