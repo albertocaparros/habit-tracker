@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconRegistry } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { provideRouter } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { App } from './app';
 
@@ -11,7 +12,7 @@ describe('App Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MatSlideToggleModule],
+      imports: [MatSlideToggleModule, TranslateModule.forRoot()],
       providers: [
         MatIconRegistry,
         provideZonelessChangeDetection(),

@@ -1,0 +1,36 @@
+<div class="flex flex-col h-screen">
+  <header>
+    <h1 class="p-4 text-2xl font-bold text-center">
+      {{ "settings.settings" | translate }}
+    </h1>
+  </header>
+  <main class="flex flex-col gap-2 w-full">
+    <article class="flex flex-row items-center justify-left gap-2 p-4">
+      <p class="text-lg">{{ "settings.toggle-theme" | translate }}</p>
+      <mat-icon aria-hidden="false" aria-label="sunny">wb_sunny</mat-icon>
+      <mat-slide-toggle hideIcon="true" (toggleChange)="toggleTheme()">
+      </mat-slide-toggle>
+      <mat-icon aria-hidden="false" aria-label="moon">moon_stars</mat-icon>
+    </article>
+    <article class="flex flex-row items-baseline justify-left gap-2 p-4">
+      <p class="text-lg">{{ "settings.language" | translate }}</p>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-select
+          [value]="selectedLanguage()"
+          (selectionChange)="changeLanguage($event)"
+          data-testid="language-select"
+        >
+          <mat-option value="en">English</mat-option>
+          <mat-option value="es">Español</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </article>
+    <button
+      data-testid="save-button"
+      class="w-5/6 self-center"
+      matButton="outlined"
+    >
+      {{ "settings.save" | translate }}
+    </button>
+  </main>
+</div>
