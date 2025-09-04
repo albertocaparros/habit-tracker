@@ -25,15 +25,4 @@ describe('Header', () => {
   it('should create the component', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
-
-  it('should toggle dark mode class', () => {
-    document.documentElement.classList.remove('dark-mode');
-    fixture.componentInstance.toggleTheme();
-    expect(document.documentElement.classList.contains('dark-mode')).toBe(true);
-
-    fixture.componentInstance.toggleTheme();
-    expect(document.documentElement.classList.contains('dark-mode')).toBe(
-      false,
-    );
-  });
 });

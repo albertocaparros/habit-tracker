@@ -28,5 +28,6 @@ describe('Navigation', () => {
     expect(navLinks[0].getAttribute('routerLink')).toBe('/');
     expect(navLinks[1].getAttribute('routerLink')).toBe('/add');
     expect(navLinks[2].getAttribute('routerLink')).toBe('/overview');
+    expect(navLinks[3].getAttribute('routerLink')).toBe('/settings');
   });
 });
