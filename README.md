@@ -1,59 +1,86 @@
-# HabitTracker
+# Habit Tracker
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.5.
+Production-style habit tracking app built with **Angular 20**. It uses **zoneless change detection**, **signals** and **computed** state (including a small `HabitEntryStore`), **Angular Material**, **Tailwind CSS**, **ngx-translate** (EN/ES), and a **PWA** via the Angular service worker.
 
-## Development server
+## Stack highlights
 
-To start a local development server, run:
+| Area | Choice |
+|------|--------|
+| Framework | Angular 20 (standalone APIs, `ApplicationConfig`) |
+| Change detection | `provideZonelessChangeDetection()` (no Zone.js) |
+| State | Signals + `computed` in services and stores |
+| UI | Angular Material, Tailwind CSS 4 |
+| i18n | `@ngx-translate` with HTTP loader |
+| Offline / install | Service worker (`ngsw-config.json` in production builds) |
+| Unit tests | **Vitest** via `@analogjs/vitest-angular` |
+| Lint / format | **Biome** (see `biome.json`) |
+| E2E | **Playwright** (`e2e/`, `ng e2e`) |
+| Git hooks | Husky + lint-staged |
 
-```bash
-ng serve
-```
+## Prerequisites
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Node.js 22 (recommended; CI uses 22)
+- npm
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Install
 
 ```bash
-ng build
+npm ci
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Development
 
 ```bash
-ng test
+npm start
+# → http://localhost:4200
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+## Build
 
 ```bash
-ng e2e
+npm run build
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Production builds enable the **service worker** and bundle budgets defined in `angular.json`.
 
-## Additional Resources
+## Tests
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+**Unit tests** (Vitest):
+
+```bash
+npm test
+```
+
+With coverage (CI uses this):
+
+```bash
+npm test -- --coverage
+```
+
+**End-to-end** (Playwright; starts the dev server via the Angular e2e target):
+
+```bash
+npx ng e2e
+```
+
+## Linting and formatting
+
+```bash
+npm run lint      # Biome lint (with --write)
+npm run check     # Biome check (lint + format)
+npm run format    # Biome format only
+```
+
+## CI
+
+The `main` branch runs Biome, Vitest with coverage, and production build on GitHub Actions; on push, deploy to Vercel is configured when `VERCEL_TOKEN` is set.
+
+## Project layout
+
+- `src/app/core` — services, models, signal-based stores (e.g. habit entries)
+- `src/app/features` — route-level features (habits, settings)
+- `src/app/shared` — reusable components, pipes
+
+## License
+
+Private / personal portfolio project unless stated otherwise.
