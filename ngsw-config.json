@@ -1,6 +1,28 @@
 {
   "$schema": "./node_modules/@angular/service-worker/config/schema.json",
   "index": "/index.html",
+  "dataGroups": [
+    {
+      "name": "google-fonts-stylesheets",
+      "urls": ["https://fonts.googleapis.com/**"],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxAge": "30d",
+        "timeout": "5s",
+        "maxSize": 20
+      }
+    },
+    {
+      "name": "google-fonts-fontfiles",
+      "urls": ["https://fonts.gstatic.com/**"],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxAge": "365d",
+        "timeout": "5s",
+        "maxSize": 50
+      }
+    }
+  ],
   "assetGroups": [
     {
       "name": "app",

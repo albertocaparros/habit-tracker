@@ -1,9 +1,13 @@
 {
-  "name": "habit-tracker",
-  "short_name": "habit-tracker",
+  "name": "Habit Tracker",
+  "short_name": "Habits",
+  "description": "Track daily habits offline-first with Angular.",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
+  "theme_color": "#4f46e5",
+  "background_color": "#fafafa",
+  "categories": ["lifestyle", "productivity"],
   "icons": [
     {
       "src": "icons/icon-72x72.png",
