@@ -1,4 +1,7 @@
+import { provideZonelessChangeDetection } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { HabitEntryRepository } from '../../data/habit-entry.repository';
 import {
   HabitEntry,
   HabitEntryInput,
@@ -16,7 +19,15 @@ describe('HabitEntryService', () => {
   };
 
   beforeEach(() => {
-    service = new HabitEntryService();
+    localStorage.clear();
+    TestBed.configureTestingModule({
+      providers: [
+        HabitEntryService,
+        HabitEntryRepository,
+        provideZonelessChangeDetection(),
+      ],
+    });
+    service = TestBed.inject(HabitEntryService);
   });
 
   it('should create the service', () => {

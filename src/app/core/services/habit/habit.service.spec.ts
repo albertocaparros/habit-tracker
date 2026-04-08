@@ -1,6 +1,7 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { HabitRepository } from '../../data/habit.repository';
 import { Habit, HabitInput } from '../../models';
 import { HabitEntryService } from '../habit-entry/habit-entry.service';
 import { HabitService } from './habit.service';
@@ -12,6 +13,8 @@ describe('HabitService', () => {
     addEntry: vi.fn(),
     updateEntry: vi.fn(),
     removeEntry: vi.fn(),
+    switchStatus: vi.fn(),
+    getEntryById: vi.fn(),
   } as unknown as HabitEntryService;
 
   const mockHabit: HabitInput = {
@@ -21,9 +24,11 @@ describe('HabitService', () => {
   };
 
   beforeEach(() => {
+    localStorage.clear();
     TestBed.configureTestingModule({
       providers: [
         HabitService,
+        HabitRepository,
         { provide: HabitEntryService, useValue: habitEntryServiceMock },
         provideZonelessChangeDetection(),
       ],
@@ -73,7 +78,7 @@ describe('HabitService', () => {
     const insertedHabit = service.addHabit(mockHabit);
     service.removeHabit(insertedHabit.id);
 
-    expect(service.getHabits()).not.toContain(insertedHabit);
+    expect(service.getHabitById(insertedHabit.id)).toBeUndefined();
   });
 
   it('should update a habit', () => {
@@ -113,8 +118,8 @@ describe('HabitService', () => {
   });
 
   it('should not allow adding two habits with the same name', () => {
-    const insertedHabit = service.addHabit(mockHabit);
+    service.addHabit(mockHabit);
 
-    expect(() => service.addHabit(insertedHabit)).toThrowError('duplicated');
+    expect(() => service.addHabit(mockHabit)).toThrowError('duplicated');
   });
 });

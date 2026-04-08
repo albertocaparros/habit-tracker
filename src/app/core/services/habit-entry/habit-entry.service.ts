@@ -1,64 +1,34 @@
-import { Injectable, signal } from '@angular/core';
-import { v4 as uuid } from 'uuid';
-import {
-  HabitEntry,
-  HabitEntryInput,
-  HabitEntryUpdate,
-  HabitStatus,
-} from '../../models';
-import { mockHabitEntries } from './mock-habit-entries';
+import { Injectable, inject } from '@angular/core';
+import { HabitEntryRepository } from '../../data/habit-entry.repository';
+import { HabitEntry, HabitEntryInput, HabitEntryUpdate } from '../../models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HabitEntryService {
-  private entries = signal<HabitEntry[]>(mockHabitEntries);
+  private readonly repository = inject(HabitEntryRepository);
 
   getEntriesForHabit(habitId: string): HabitEntry[] {
-    return this.entries().filter((entry) => entry.habitId === habitId);
+    return this.repository.getEntriesForHabit(habitId);
   }
 
   getEntryById(id: string): HabitEntry | undefined {
-    return this.entries().find((entry) => entry.id === id);
+    return this.repository.getEntryById(id);
   }
 
   addEntry(entry: HabitEntryInput): HabitEntry {
-    const newEntry: HabitEntry = {
-      id: uuid(),
-      ...entry,
-      date: new Date().toISOString().slice(0, 10),
-    };
-
-    this.entries.update((e) => [...e, newEntry]);
-    return newEntry;
+    return this.repository.addEntry(entry);
   }
 
   updateEntry(id: string, updatedEntry: HabitEntryUpdate): void {
-    this.entries.update((e) =>
-      e.map((entry) =>
-        entry.id === id ? { ...entry, ...updatedEntry } : entry,
-      ),
-    );
+    this.repository.updateEntry(id, updatedEntry);
   }
 
-  removeEntry(id: string) {
-    this.entries.update((e) => e.filter((entry) => entry.id !== id));
+  removeEntry(id: string): void {
+    this.repository.removeEntry(id);
   }
 
   switchStatus(id: string): void {
-    this.entries.update((e) =>
-      e.map((entry) =>
-        entry.id === id
-          ? { ...entry, status: this.shuffleStatus(entry.status) }
-          : entry,
-      ),
-    );
-  }
-
-  private shuffleStatus(currentStatus: HabitStatus): HabitStatus {
-    const statuses: HabitStatus[] = ['done', 'missed', 'pending'];
-    const currentIndex = statuses.indexOf(currentStatus);
-    const nextIndex = (currentIndex + 1) % statuses.length;
-    return statuses[nextIndex];
+    this.repository.switchStatus(id);
   }
 }
