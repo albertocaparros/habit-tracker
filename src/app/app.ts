@@ -3,6 +3,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { HabitReminderService } from './core/services/reminder/habit-reminder.service';
 import { SettingsStore } from './core/stores/settings/settings.store';
 import { Navigation } from './shared/components/navigation/navigation';
 import { PwaInstallBanner } from './shared/components/pwa-install-banner/pwa-install-banner';
@@ -26,11 +27,13 @@ export class App implements OnInit {
   private readonly translate = inject(TranslateService);
   private readonly matIconReg = inject(MatIconRegistry);
   private readonly settingsStore = inject(SettingsStore);
+  private readonly reminder = inject(HabitReminderService);
 
   ngOnInit(): void {
     this.matIconReg.setDefaultFontSetClass('material-symbols-outlined');
     this.translate.addLangs(['en', 'es']);
     this.translate.setFallbackLang('en');
     this.translate.use(this.settingsStore.locale());
+    this.reminder.start();
   }
 }
