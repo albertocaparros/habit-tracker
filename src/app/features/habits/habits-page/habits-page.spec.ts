@@ -6,6 +6,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { By } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { beforeEach, describe, expect, it } from 'vitest';
+import {
+  createSystemDateClock,
+  DATE_CLOCK,
+} from '../../../core/lib/clock/date-clock';
 import { HabitService } from '../../../core/services';
 import { mockHabits } from '../../../core/services/habit/mock-habits';
 import { FormatDatePipe } from '../../../shared/pipes';
@@ -25,8 +29,9 @@ describe('HabitsPage', () => {
     } as unknown as HabitService;
 
     TestBed.configureTestingModule({
-      imports: [MatIconModule, MatSlideToggleModule],
+      imports: [HabitsPage, MatIconModule, MatSlideToggleModule],
       providers: [
+        { provide: DATE_CLOCK, useFactory: createSystemDateClock },
         { provide: DOCUMENT, useValue: globalThis.document },
         { provide: HabitService, useValue: habitServiceMock },
         provideZonelessChangeDetection(),

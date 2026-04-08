@@ -2,6 +2,10 @@ import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { beforeEach, describe, expect, it } from 'vitest';
+import {
+  createSystemDateClock,
+  DATE_CLOCK,
+} from '../../../core/lib/clock/date-clock';
 import { Habit, HabitEntry } from '../../../core/models';
 import { HabitEntryService } from '../../../core/services';
 import { mockHabitEntries } from '../../../core/services/habit-entry/mock-habit-entries';
@@ -35,6 +39,7 @@ describe('HabitCard', () => {
       imports: [HabitCard],
       providers: [
         provideZonelessChangeDetection(),
+        { provide: DATE_CLOCK, useFactory: createSystemDateClock },
         { provide: HabitEntryService, useValue: mockHabitEntryService },
         {
           provide: ActivatedRoute,

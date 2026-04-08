@@ -1,6 +1,7 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { DATE_CLOCK } from '../../lib/clock/date-clock';
 import { Habit, HabitEntry, HabitEntryInput } from '../../models';
 import { HabitEntryService } from '../../services';
 import { mockHabitEntries } from '../../services/habit-entry/mock-habit-entries';
@@ -16,18 +17,26 @@ describe('HabitEntryStore', () => {
     createdAt: new Date().toISOString().slice(0, 10),
   };
 
+  const clock = {
+    todayUtcIsoDate: () => '2025-08-25',
+    now: () => new Date('2025-08-25T12:00:00.000Z'),
+  };
+
   beforeEach(() => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2025-08-25T12:00:00.000Z'));
+
     habitEntryServiceMock = {
       getEntriesForHabit: vi
         .fn()
         .mockReturnValue([
           ...mockHabitEntries.filter((entry) => entry.habitId === 'habit-1'),
         ]),
-      addEntry: vi.fn().mockImplementation((entry: HabitEntry) => {
+      addEntry: vi.fn().mockImplementation((entry: HabitEntryInput) => {
         const newEntry: HabitEntry = {
           ...entry,
           id: 'new-id',
-          date: new Date().toISOString().slice(0, 10),
+          date: clock.todayUtcIsoDate(),
         };
 
         return newEntry;
@@ -35,17 +44,23 @@ describe('HabitEntryStore', () => {
       updateEntry: vi.fn(),
       removeEntry: vi.fn(),
       switchStatus: vi.fn(),
+      getEntryById: vi.fn(),
     } as unknown as HabitEntryService;
 
     TestBed.configureTestingModule({
       providers: [
         HabitEntryStore,
         { provide: HabitEntryService, useValue: habitEntryServiceMock },
+        { provide: DATE_CLOCK, useValue: clock },
         provideZonelessChangeDetection(),
       ],
     });
 
     service = TestBed.inject(HabitEntryStore);
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   it('should create the service', () => {
