@@ -1,14 +1,35 @@
 import { Routes } from '@angular/router';
-import { AddPage } from './features/habits/add-page/add-page';
-import { EditPage } from './features/habits/edit-page/edit-page';
-import { HabitsPage } from './features/habits/habits-page/habits-page';
-import { OverviewPage } from './features/habits/overview-page/overview-page';
-import { SettingsPage } from './features/settings/settings-page/settings-page';
 
 export const routes: Routes = [
-  { path: '', component: HabitsPage },
-  { path: 'add', component: AddPage },
-  { path: 'edit/:id', component: EditPage },
-  { path: 'overview', component: OverviewPage },
-  { path: 'settings', component: SettingsPage },
+  {
+    path: '',
+    loadComponent: () =>
+      import('./features/habits/habits-page/habits-page').then(
+        (m) => m.HabitsPage,
+      ),
+  },
+  {
+    path: 'add',
+    loadComponent: () =>
+      import('./features/habits/add-page/add-page').then((m) => m.AddPage),
+  },
+  {
+    path: 'edit/:id',
+    loadComponent: () =>
+      import('./features/habits/edit-page/edit-page').then((m) => m.EditPage),
+  },
+  {
+    path: 'overview',
+    loadComponent: () =>
+      import('./features/habits/overview-page/overview-page').then(
+        (m) => m.OverviewPage,
+      ),
+  },
+  {
+    path: 'settings',
+    loadComponent: () =>
+      import('./features/settings/settings-page/settings-page').then(
+        (m) => m.SettingsPage,
+      ),
+  },
 ];
