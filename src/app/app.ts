@@ -5,11 +5,18 @@ import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingsStore } from './core/stores/settings/settings.store';
 import { Navigation } from './shared/components/navigation/navigation';
+import { PwaInstallBanner } from './shared/components/pwa-install-banner/pwa-install-banner';
 import { SwUpdatePrompt } from './shared/components/sw-update-prompt/sw-update-prompt';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatSlideToggleModule, Navigation, SwUpdatePrompt],
+  imports: [
+    RouterOutlet,
+    MatSlideToggleModule,
+    Navigation,
+    SwUpdatePrompt,
+    PwaInstallBanner,
+  ],
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
 })
