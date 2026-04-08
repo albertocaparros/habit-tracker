@@ -3,6 +3,9 @@
     "settings": "Settings",
     "toggle-theme": "Toggle theme",
     "language": "Language",
-    "save": "Save"
+    "notifications": "Reminders",
+    "reminder-time": "Reminder time",
+    "save": "Save",
+    "saved": "Settings saved"
   }
 }

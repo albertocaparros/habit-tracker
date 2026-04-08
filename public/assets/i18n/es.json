@@ -3,6 +3,9 @@
     "settings": "Configuración",
     "toggle-theme": "Cambiar tema",
     "language": "Idioma",
-    "save": "Guardar"
+    "notifications": "Recordatorios",
+    "reminder-time": "Hora del recordatorio",
+    "save": "Guardar",
+    "saved": "Ajustes guardados"
   }
 }

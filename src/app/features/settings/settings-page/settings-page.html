@@ -8,7 +8,11 @@
     <article class="flex flex-row items-center justify-left gap-2 p-4">
       <p class="text-lg">{{ "settings.toggle-theme" | translate }}</p>
       <mat-icon aria-hidden="false" aria-label="sunny">wb_sunny</mat-icon>
-      <mat-slide-toggle hideIcon="true" (toggleChange)="toggleTheme()">
+      <mat-slide-toggle
+        hideIcon="true"
+        [checked]="settingsStore.theme() === 'dark'"
+        (change)="onThemeToggle($event.checked)"
+      >
       </mat-slide-toggle>
       <mat-icon aria-hidden="false" aria-label="moon">moon_stars</mat-icon>
     </article>
@@ -16,7 +20,7 @@
       <p class="text-lg">{{ "settings.language" | translate }}</p>
       <mat-form-field appearance="outline" class="w-full">
         <mat-select
-          [value]="selectedLanguage()"
+          [value]="settingsStore.locale()"
           (selectionChange)="changeLanguage($event)"
           data-testid="language-select"
         >
@@ -25,10 +29,32 @@
         </mat-select>
       </mat-form-field>
     </article>
+    <article class="flex flex-col gap-2 p-4">
+      <div class="flex flex-row items-center gap-2">
+        <p class="text-lg">{{ "settings.notifications" | translate }}</p>
+        <mat-slide-toggle
+          [checked]="settingsStore.notificationsEnabled()"
+          (change)="onNotificationsToggle($event.checked)"
+          data-testid="notifications-toggle"
+        ></mat-slide-toggle>
+      </div>
+      <mat-form-field appearance="outline" class="w-full max-w-xs">
+        <mat-label>{{ "settings.reminder-time" | translate }}</mat-label>
+        <input
+          matInput
+          type="time"
+          [value]="settingsStore.reminderTime() ?? ''"
+          (change)="onReminderTimeChange($any($event.target).value)"
+          data-testid="reminder-time"
+        />
+      </mat-form-field>
+    </article>
     <button
       data-testid="save-button"
       class="w-5/6 self-center"
       matButton="outlined"
+      type="button"
+      (click)="save()"
     >
       {{ "settings.save" | translate }}
     </button>
