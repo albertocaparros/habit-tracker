@@ -5,10 +5,11 @@ import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingsStore } from './core/stores/settings/settings.store';
 import { Navigation } from './shared/components/navigation/navigation';
+import { SwUpdatePrompt } from './shared/components/sw-update-prompt/sw-update-prompt';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatSlideToggleModule, Navigation],
+  imports: [RouterOutlet, MatSlideToggleModule, Navigation, SwUpdatePrompt],
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
 })
