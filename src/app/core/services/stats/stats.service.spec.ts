@@ -1,6 +1,7 @@
 import { provideZonelessChangeDetection, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { createSystemDateClock, DATE_CLOCK } from '../../lib/clock/date-clock';
 import { DailyStats, HabitStats } from '../../models';
 import { HabitService } from '../habit/habit.service';
 import { mockHabits } from '../habit/mock-habits';
@@ -40,6 +41,7 @@ describe('Stats', () => {
         StatsService,
         { provide: HabitEntryService, useValue: habitEntryServiceMock },
         { provide: HabitService, useValue: habitServiceMock },
+        { provide: DATE_CLOCK, useFactory: createSystemDateClock },
         provideZonelessChangeDetection(),
       ],
     });
@@ -158,9 +160,8 @@ describe('Stats', () => {
       },
     };
 
-    const dailyData = service.getDailyStatsData();
-
-    expect(dailyData).toEqual(expectedDailyData);
+    expect(service.dailyStatsData()).toEqual(expectedDailyData);
+    expect(service.getDailyStatsData()).toEqual(expectedDailyData);
   });
 
   it('should return the expected habit stats', () => {
@@ -177,8 +178,7 @@ describe('Stats', () => {
       completionRate: (22 / 28) * 100,
     };
 
-    const habitStats = service.getHabitStats();
-
-    expect(habitStats).toEqual(expectedHabitStats);
+    expect(service.habitStats()).toEqual(expectedHabitStats);
+    expect(service.getHabitStats()).toEqual(expectedHabitStats);
   });
 });

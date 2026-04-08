@@ -1,4 +1,4 @@
-import { provideZonelessChangeDetection } from '@angular/core';
+import { provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { DailyStats, HabitStats } from '../../../core/models';
@@ -26,6 +26,8 @@ describe('OverviewPage', () => {
 
   beforeEach(async () => {
     statsServiceMock = {
+      dailyStatsData: signal(mockDailyStatsData),
+      habitStats: signal(mockHabitStats),
       getDailyStatsData: vi.fn().mockReturnValue(mockDailyStatsData),
       getHabitStats: vi.fn().mockReturnValue(mockHabitStats),
     } as unknown as StatsService;
@@ -47,14 +49,9 @@ describe('OverviewPage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load daily and stats data on init from the service', () => {
-    component.ngOnInit();
-
-    expect(statsServiceMock.getDailyStatsData).toHaveBeenCalled();
-    expect(statsServiceMock.getHabitStats).toHaveBeenCalled();
-
-    expect(component.dailyData).toBeDefined();
-    expect(component.habitStats).toBeDefined();
+  it('should expose stats signals from the service', () => {
+    expect(component.dailyData()).toEqual(mockDailyStatsData);
+    expect(component.habitStats()).toEqual(mockHabitStats);
   });
 
   it('should print all the habit stats in the template', () => {
