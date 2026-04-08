@@ -15,6 +15,16 @@ export default defineConfig(({ mode }) => {
       include: ["**/*.spec.ts"],
       exclude: ["node_modules", "dist", "e2e"],
       reporters: ["default"],
+      coverage: {
+        provider: "v8",
+        include: ["src/app/core/**", "src/app/shared/**"],
+        thresholds: {
+          lines: 65,
+          branches: 55,
+          functions: 55,
+          statements: 65,
+        },
+      },
     },
     define: {
       "import.meta.vitest": mode !== "production",
